@@ -17,8 +17,11 @@ public class RowGameGUI {
     public JButton reset = new JButton("Reset");
     public JTextArea playerturn = new JTextArea();
 
+    
     /**
      * Creates a new game initializing the GUI.
+     *
+     * @param controller The RowGamController which will  
      */
     public RowGameGUI(RowGameController controller) {
         gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -53,9 +56,11 @@ public class RowGameGUI {
                 blocks[row][column] = new JButton();
                 blocks[row][column].setPreferredSize(new Dimension(75,75));
                 game.add(blocks[row][column]);
+                
+                //defining what happens when you click the button
                 blocks[row][column].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-			controller.move((JButton)e.getSource());
+			controller.move((JButton)e.getSource());//this will call controller.move on the JButton object that was clicked
                     }
                 });
             }

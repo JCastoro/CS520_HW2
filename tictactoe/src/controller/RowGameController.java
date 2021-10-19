@@ -16,6 +16,9 @@ public class RowGameController {
 
     /**
      * Creates a new game initializing the GUI.
+     * 
+     * 
+     * Houses the functions for every controller aspect i.e buttons
      */
     public RowGameController() {
 	gameModel = new RowGameModel();
@@ -23,9 +26,10 @@ public class RowGameController {
 
         for(int row = 0; row<3; row++) {
             for(int column = 0; column<3 ;column++) {
+            	
 	        gameModel.blocksData[row][column].setContents("");
-		gameModel.blocksData[row][column].setIsLegalMove(true);
-		gameView.updateBlock(gameModel,row,column);
+	        gameModel.blocksData[row][column].setIsLegalMove(true);
+	        gameView.updateBlock(gameModel,row,column);
             }
         }
     }
@@ -37,18 +41,23 @@ public class RowGameController {
      */
     public void move(JButton block) {
 	gameModel.movesLeft--;
-	if(gameModel.movesLeft%2 == 1) {
-	    gameView.playerturn.setText("'X': Player 1");
-	} else{
-	    gameView.playerturn.setText("'O': Player 2");
+	String player1Symbol = "X";
+	String player1Name = "Player 1";
+	String player2Symbol = "O";
+	String player2Name = "Player 2";
+	
+	if(gameModel.movesLeft%2 == 1) {//if odd number of moves left its player 1 turn
+	    gameView.playerturn.setText(player1Symbol + ": " + player1Name);
+	} else{//if even its player 2
+	    gameView.playerturn.setText(player2Symbol + ": " + player2Name);
 	}
 	
 	if(gameModel.player.equals("1")) {
 	    // Check whether player 1 won
 	    if(block==gameView.blocks[0][0]) {
-		gameModel.blocksData[0][0].setContents("X");
-		gameView.updateBlock(gameModel,0,0);
-		gameModel.player = "2";
+	    	gameModel.blocksData[0][0].setContents("X");
+	    	gameView.updateBlock(gameModel,0,0);
+	    	gameModel.player = "2";
 		if(gameModel.movesLeft<7) {
 		    if((gameModel.blocksData[0][0].getContents().equals(gameModel.blocksData[0][1].getContents()) &&
 			gameModel.blocksData[0][1].getContents().equals(gameModel.blocksData[0][2].getContents())) ||
@@ -65,6 +74,8 @@ public class RowGameController {
 			gameView.playerturn.setText(gameModel.getFinalResult());
 		    }
 		}
+		
+		
 	    } else if(block==gameView.blocks[0][1]) {
 		gameModel.blocksData[0][1].setContents("X");
 		gameView.updateBlock(gameModel,0,1);
@@ -390,23 +401,80 @@ public class RowGameController {
 			gameModel.setFinalResult("Player 2 wins!");
 			endGame();
 		    } else if(gameModel.movesLeft==0) {
-			gameModel.setFinalResult(RowGameModel.GAME_END_NOWINNER);
+		    	gameModel.setFinalResult(RowGameModel.GAME_END_NOWINNER);
 		    }
 		    if (gameModel.getFinalResult() != null) {
-			gameView.playerturn.setText(gameModel.getFinalResult());
+		    	gameView.playerturn.setText(gameModel.getFinalResult());
 		    }
 		}
 	    }
 	}
     }
 
+    
+    
+    
+    
+    
+    
+    
+    //checks if the game is won. Could run this starting on turn 5 to save computations.
+    public void endGameIfWon(Jbutton block) {//is this a bad name??
+    	int player1Count = 0;
+    	int player1TopDownDiagonal = 0;
+    	int player1DownTopDiagonal = 0;
+    	
+    	int player2Count = 0;
+    	int player2TopDownDiagonal = 0;
+    	int player2DownTopDiagonal = 0;
+    	
+    	
+    	//assuming we will not be making the board any larger.
+    	// better computational implementation would create row, column and diagonals vectors for each player
+    		// would add 1 to respective vectors and check if sum was 3, if 3 then we know there is a win.
+    	
+    	
+    	//based on where the move is played you only have to check that row, col and possibly diagonal.
+    	
+    	//iterate through each row
+    	
+    	
+    	
+    	
+    	for (int row = 0; row < 3; row++) {
+    	    for (int col = 0; col < 3; col++) {
+    	    	//tally the amount of X's
+    	    	String currCellValue = gameModel.blocksData[row][col].getContents();
+    	    	if( currCellValue == "X") {
+    	    		player1Count += 1;	
+    	    	}
+    	    	else if(currCellValue == "O") {
+    	    		player2Count += 1;
+    	    	}
+    	    	
+    	    }
+    	}
+        if (player1Count == 3) {
+        	gameModel.setFinalResult("Player 1 Wins");
+        	endGame();
+        }
+        else if (player2Count == 3) {
+        	gameModel.setFinalResult("Plater 2 Wins");
+        	endGame();
+        }    	
+    }
+    
+    
+    
+    
+    
     /**
      * Ends the game disallowing further player turns.
      */
     public void endGame() {
 	for(int row = 0;row<3;row++) {
 	    for(int column = 0;column<3;column++) {
-		gameView.blocks[row][column].setEnabled(false);
+	    	gameView.blocks[row][column].setEnabled(false);
 	    }
 	}
     }
@@ -418,12 +486,12 @@ public class RowGameController {
         for(int row = 0;row<3;row++) {
             for(int column = 0;column<3;column++) {
                 gameModel.blocksData[row][column].reset();
-		gameModel.blocksData[row][column].setIsLegalMove(true);
-		gameView.updateBlock(gameModel,row,column);
+                gameModel.blocksData[row][column].setIsLegalMove(true);
+                gameView.updateBlock(gameModel,row,column);
             }
         }
-        gameModel.player = "1";
-        gameModel.movesLeft = 9;
-        gameView.playerturn.setText("Player 1 to play 'X'");
+        	gameModel.player = "1";
+        	gameModel.movesLeft = 9;
+        	gameView.playerturn.setText("Player 1 to play 'X'");
     }
 }
