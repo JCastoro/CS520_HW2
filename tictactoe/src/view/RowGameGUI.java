@@ -60,7 +60,7 @@ public class RowGameGUI {
                 //defining what happens when you click the button
                 blocks[row][column].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-			controller.move((JButton)e.getSource());//this will call controller.move on the JButton object that was clicked
+			controller.move(row,column);//dont want to pass the button in itself
                     }
                 });
             }
