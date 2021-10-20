@@ -51,16 +51,19 @@ public class RowGameGUI {
         });
 
         // Initialize a JButton for each cell of the 3x3 game board.
-        for(int row = 0; row<3; row++) {
+        for(int row = 0; row<3; row++) { 
             for(int column = 0; column<3 ;column++) {
+            	
                 blocks[row][column] = new JButton();
                 blocks[row][column].setPreferredSize(new Dimension(75,75));
                 game.add(blocks[row][column]);
                 
+                int currRow = row;
+            	int currCol = column;
                 //defining what happens when you click the button
                 blocks[row][column].addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-			controller.move(row,column);//dont want to pass the button in itself
+                    	controller.move(currRow, currCol);//dont want to pass the button in itself
                     }
                 });
             }
