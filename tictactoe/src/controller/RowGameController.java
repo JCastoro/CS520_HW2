@@ -48,14 +48,20 @@ public class RowGameController {
 	
     	if(gameModel.movesLeft%2 == 1) {//if odd number of moves left its player 1 turn
     		gameView.playerturn.setText(player1Symbol + ": " + player1Name);
-    		gameModel.blocksData[row][column].setContents("X");
+    		gameModel.blocksData[row][column].setContents("O");
     	} 
     	else{//if even its player 2
     		gameView.playerturn.setText(player2Symbol + ": " + player2Name);
-    		gameModel.blocksData[row][column].setContents("O");
+    		gameModel.blocksData[row][column].setContents("X");
     	}
-	
+    	gameView.updateBlock(gameModel,row,column);
     	endGameIfWon(row,column);
+    	if(gameModel.movesLeft <=0) {
+    		gameModel.setFinalResult(RowGameModel.GAME_END_NOWINNER);
+    		endGame();
+    	}
+    	//displaying final resulto
+    	gameView.playerturn.setText(gameModel.getFinalResult());
 	
     }
 
@@ -100,7 +106,7 @@ public class RowGameController {
 	          	endGame();
 	          }
 	    else if (player2Count == 3) {
-	          	gameModel.setFinalResult("Plater 2 Wins");
+	          	gameModel.setFinalResult("Player 2 Wins");
 	          	endGame();
 	          } 
     	
@@ -121,7 +127,7 @@ public class RowGameController {
 	          	endGame();
 	          }
 	          else if (player2Count == 3) {
-	          	gameModel.setFinalResult("Plater 2 Wins");
+	          	gameModel.setFinalResult("Player 2 Wins");
 	          	endGame();
 	          } 
     	}
