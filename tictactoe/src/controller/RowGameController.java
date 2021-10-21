@@ -69,13 +69,6 @@ public class RowGameController {
     	gameView.playerturn.setText(gameModel.getFinalResult());
 	
     }
-
-    
-    
-    
-    
-    
-    
     
     //checks if the game is won. Could run this starting on turn 5 to save computations.
     public void endGameIfWon(int row, int column) {//is this a bad name??
@@ -199,6 +192,7 @@ public class RowGameController {
         }
         	gameModel.player = "1";
         	gameModel.movesLeft = 9;
+        	gameModel.setFinalResult(null);
         	gameView.playerturn.setText("Player 1 to play 'X'");
     }
 }
