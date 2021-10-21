@@ -24,22 +24,22 @@ public class RowGameModel
 
 
     public RowGameModel() {
-	super();
+    	super();
 
-	//fills array with RowBlockModel objects
-	for (int row = 0; row < 3; row++) {
-	    for (int col = 0; col < 3; col++) {
-	    	blocksData[row][col] = new RowBlockModel(this);
-	    } // end for col
-	} // end for row
+    	//fills array with RowBlockModel objects
+    	for (int row = 0; row < 3; row++) {
+    		for (int col = 0; col < 3; col++) {
+    			blocksData[row][col] = new RowBlockModel(this);
+    		}
+    	}
     }
 
     public String getFinalResult() {
-	return this.finalResult;
+    	return this.finalResult;
     }
 
     public void setFinalResult(String finalResult) {
-	this.finalResult = finalResult;
+    	this.finalResult = finalResult;
     }
     
 

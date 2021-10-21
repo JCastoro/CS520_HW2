@@ -32,7 +32,6 @@ public class RowBlockModel
     public RowBlockModel(RowGameModel game) {
     	super();
 
-    	//TODO add a test for this
     	if (game == null) {
     		throw new IllegalArgumentException("The game must be non-null.");
     	}

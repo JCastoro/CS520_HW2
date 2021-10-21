@@ -55,7 +55,7 @@ public class RowGameController {
     	String player2Name = "Player 2";
     	
 	
-    	if(gameModel.movesLeft%2 == 1) {//if odd number of moves left its player 1 turn
+    	if(gameModel.movesLeft%2 == 1) {//if odd number of moves left its player 1 turn    	
     		gameView.playerturn.setText(player1Symbol + ": " + player1Name);
     		gameModel.blocksData[row][column].setContents("O");
     	} 

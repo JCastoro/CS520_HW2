@@ -32,4 +32,18 @@ public class TestExample {
     public void testNewBlockViolatesPrecondition() {
 	RowBlockModel block = new RowBlockModel(null);
     }
+    
+    @Test
+    public void testPlayer1Wins() {
+    	game.move(0, 0);//player 1
+    	game.move(1, 0);//player 2
+    	
+    	game.move(0, 1);//player 1
+    	game.move(2, 1);//player 2
+    	
+    	game.move(0, 2);//player 1
+    	
+    	
+    	assertEquals ("Player 1 Wins", game.gameView.playerturn.getText());
+    }
 }
