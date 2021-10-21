@@ -54,7 +54,6 @@ public class RowGameController {
     	String player2Symbol = "O";
     	String player2Name = "Player 2";
     	
-    	gameView.playerturn.setText("Move is happening");
 	
     	if(gameModel.movesLeft%2 == 1) {//if odd number of moves left its player 1 turn
     		gameView.playerturn.setText(player1Symbol + ": " + player1Name);
@@ -73,8 +72,6 @@ public class RowGameController {
     		gameModel.setFinalResult(RowGameModel.GAME_END_NOWINNER);
     		endGame();
     	}
-    	//displaying final result
-    	gameView.playerturn.setText(gameModel.getFinalResult());
     	
     	//updating blocks
     	gameView.updateBlock(gameModel,row,column);
@@ -152,11 +149,13 @@ public class RowGameController {
     	if ((player1DownTopDiagonal == 3) || (player1TopDownDiagonal == 3) 
     			|| (player1RowCount == 3) || player1ColCount == 3) {
           	gameModel.setFinalResult("Player 1 Wins");
+          	
           	endGame();
           }
           else if ((player2DownTopDiagonal == 3) || (player2TopDownDiagonal == 3) 
       			|| (player2RowCount == 3) || player2ColCount == 3) {
           	gameModel.setFinalResult("Player 2 Wins");
+   
           	endGame();
           } 
     	
@@ -176,6 +175,7 @@ public class RowGameController {
 	    	gameView.blocks[row][column].setEnabled(false);
 	    }
 	}
+	gameView.playerturn.setText(gameModel.getFinalResult());
     }
 
     /**
