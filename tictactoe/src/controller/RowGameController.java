@@ -46,10 +46,15 @@ public class RowGameController {
      */
     public void move(int row, int column) {
     	gameModel.movesLeft--;
+    	gameModel.blocksData[row][column].setIsLegalMove(false);
+    	
+    	
     	String player1Symbol = "X";
     	String player1Name = "Player 1";
     	String player2Symbol = "O";
     	String player2Name = "Player 2";
+    	
+    	gameView.playerturn.setText("Move is happening");
 	
     	if(gameModel.movesLeft%2 == 1) {//if odd number of moves left its player 1 turn
     		gameView.playerturn.setText(player1Symbol + ": " + player1Name);
@@ -58,25 +63,33 @@ public class RowGameController {
     	else{//if even its player 2
     		gameView.playerturn.setText(player2Symbol + ": " + player2Name);
     		gameModel.blocksData[row][column].setContents("X");
+    		
     	}
+    	
     	gameView.updateBlock(gameModel,row,column);
     	endGameIfWon(row,column);
+    	
     	if(gameModel.movesLeft <=0) {
     		gameModel.setFinalResult(RowGameModel.GAME_END_NOWINNER);
     		endGame();
     	}
     	//displaying final result
     	gameView.playerturn.setText(gameModel.getFinalResult());
+    	
+    	//updating blocks
+    	gameView.updateBlock(gameModel,row,column);
 	
     }
     
     //checks if the game is won. Could run this starting on turn 5 to save computations.
     public void endGameIfWon(int row, int column) {//is this a bad name??
-    	int player1Count = 0;
+    	int player1RowCount = 0;
+    	int player1ColCount = 0;
     	int player1TopDownDiagonal = 0;
     	int player1DownTopDiagonal = 0;
     	
-    	int player2Count = 0;
+    	int player2RowCount = 0;
+       	int player2ColCount = 0;
     	int player2TopDownDiagonal = 0;
     	int player2DownTopDiagonal = 0;
     	
@@ -92,58 +105,39 @@ public class RowGameController {
     	for( int i = 0; i<3; i++) {//checks all blocks in the column that the move was made in
     		currCellValue = gameModel.blocksData[i][column].getContents();
 	    	if( currCellValue == "X") {
-	    		player1Count += 1;
+	    		player1RowCount += 1;
 	    	}
 	    	else if(currCellValue == "O") {
-	    		player2Count += 1;
+	    		player2RowCount += 1;
 	    	}
-    	}
-	    	
-	    if (player1Count == 3) {
-	          	gameModel.setFinalResult("Player 1 Wins");
-	          	endGame();
-	          }
-	    else if (player2Count == 3) {
-	          	gameModel.setFinalResult("Player 2 Wins");
-	          	endGame();
-	          } 
-    	
-    	player1Count = 0;
-    	player2Count = 0;
+    	}    	
     	//checking row
     	for( int i = 0; i<3; i++) {//checks all blocks in the row the move was made in
     		currCellValue = gameModel.blocksData[row][i].getContents();
 	    	if( currCellValue == "X") {
-	    		player1Count += 1;	
+	    		player1ColCount += 1;	
 	    	}
 	    	else if(currCellValue == "O") {
-	    		player2Count += 1;
+	    		player2ColCount += 1;
 	    	}
 	    	
-	    	  if (player1Count == 3) {
-	          	gameModel.setFinalResult("Player 1 Wins");
-	          	endGame();
-	          }
-	          else if (player2Count == 3) {
-	          	gameModel.setFinalResult("Player 2 Wins");
-	          	endGame();
-	          } 
     	}
     	
     	//checking diagonals
-    	if(row ==column) {//topDown Diagonal
-    		currCellValue = gameModel.blocksData[row][column].getContents();
+    	for( int i = 0; i<3; i++) {//topDown Diagonal
+    		currCellValue = gameModel.blocksData[i][i].getContents();
     		if( currCellValue == "X") {
     			player1TopDownDiagonal += 1;	
 	    	}
 	    	else if(currCellValue == "O") {
 	    		player2TopDownDiagonal += 1;
 	    	}
+    		
     	}
-    	
     		//bottom left to top right diagonal
-    	else if((row == 2 && column == 0) || (row == 2 && column == 0) || (row == 1 && column == 1) ) {// this is not ideal
-    		currCellValue = gameModel.blocksData[row][column].getContents();
+    	//else if((row == 2 && column == 0) || (row == 2 && column == 0) || (row == 1 && column == 1) ) {// this is not ideal
+    	for( int i = 0,j=2; i<3; i++,j--) {
+    		currCellValue = gameModel.blocksData[i][j].getContents();
     		if( currCellValue == "X") {
     			player1DownTopDiagonal += 1;	
 	    	}
@@ -152,12 +146,17 @@ public class RowGameController {
 	    	}	
     	}
     	
-    	if (player1DownTopDiagonal == 3|| player1TopDownDiagonal == 3) {
+    	
+    	//updating results
+    	
+    	if ((player1DownTopDiagonal == 3) || (player1TopDownDiagonal == 3) 
+    			|| (player1RowCount == 3) || player1ColCount == 3) {
           	gameModel.setFinalResult("Player 1 Wins");
           	endGame();
           }
-          else if (player2DownTopDiagonal == 3|| player2TopDownDiagonal == 3) {
-          	gameModel.setFinalResult("Plater 2 Wins");
+          else if ((player2DownTopDiagonal == 3) || (player2TopDownDiagonal == 3) 
+      			|| (player2RowCount == 3) || player2ColCount == 3) {
+          	gameModel.setFinalResult("Player 2 Wins");
           	endGame();
           } 
     	
