@@ -4,9 +4,8 @@ package model;
 /*
  * Object holds player turn, moves left, final result and a 2d array of RowBlockModels
  * 
- * 
+ * This is the Model in our MVC Architecture. It holds the data for the game.
  */
-
 
 public class RowGameModel 
 {
@@ -45,4 +44,4 @@ public class RowGameModel
     
 
     }
-    
+    s

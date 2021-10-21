@@ -10,15 +10,20 @@ import java.awt.event.*;
 import model.RowGameModel;
 import view.RowGameGUI;
 
+/**
+ * class holds all of the functions for controller aspect of MVC architecture. The actual Java Swing objects
+ * the user will interact with are held in the RowGameGUI file.
+ * 
+ * 
+ * 
+ */
 public class RowGameController {
     public RowGameModel gameModel;
     public RowGameGUI gameView;
 
     /**
-     * Creates a new game initializing the GUI.
+     * Creates a new game initializing the GUI as well as the underlying game Model.
      * 
-     * 
-     * Houses the functions for every controller aspect i.e buttons
      */
     public RowGameController() {
 	gameModel = new RowGameModel();
@@ -60,7 +65,7 @@ public class RowGameController {
     		gameModel.setFinalResult(RowGameModel.GAME_END_NOWINNER);
     		endGame();
     	}
-    	//displaying final resulto
+    	//displaying final result
     	gameView.playerturn.setText(gameModel.getFinalResult());
 	
     }

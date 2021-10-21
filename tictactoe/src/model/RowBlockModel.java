@@ -1,7 +1,9 @@
 package model;
 
 /**
- * The TicTacToeBlock class represents a given block in the game.
+ * The RowBlockModel class holds the data for a given block in the board.
+ * 
+ * This is an object that is used to build the View in our MVC architecture.
  */
 public class RowBlockModel
 {

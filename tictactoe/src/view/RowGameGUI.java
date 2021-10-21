@@ -10,6 +10,12 @@ import java.awt.event.*;
 import model.RowGameModel;
 import controller.RowGameController;
 
+
+/**
+ * This class creates the Controllers for the user. When the controllers are interacted with they will call 
+ * functions from the RowGameController class which will update the model and in turn the view.
+ * 
+ */
 public class RowGameGUI {
     public JFrame gui = new JFrame("Tic Tac Toe");
     public RowGameModel gameModel = new RowGameModel();
