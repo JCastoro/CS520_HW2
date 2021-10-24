@@ -34,6 +34,34 @@ public class ControllerTest {
         //i dont update the player number but that should really be changed as well.
     }
     
+    public void testResetButton() {
+    	game.move(1, 1);
+    	game.resetGame();
+    	
+     
+        assertEquals (9, game.gameModel.movesLeft);
+        assertEquals ("Player 1 to play 'X'", game.gameView.playerturn.getText());
+        assertEquals ("1", game.gameModel.player);
+        assertEquals (null, game.gameModel.getFinalResult());
+    }
+    
+    public void testEndGame() {
+    	game.move(0, 0);
+    	game.move(1, 1);
+    	game.move(0, 1);
+    	game.move(2, 1);
+    	
+    	game.move(0, 2);
+    	
+    	for(int row = 0;row<3;row++) {
+    	    for(int column = 0;column<3;column++) {
+    	    	assertEquals (false,game.gameModel.blocksData[row][column].getIsLegalMove() );
+    	    }
+    	}
+       
+        assertEquals ("Player 1 Wins", game.gameView.playerturn.getText() );
+       
+    }
     
     
-}
+    }

@@ -74,6 +74,8 @@ public class RowGameController {
     	endGameIfWon(row,column);
     	
     	if(gameModel.movesLeft <=0) {
+    		
+    		//example of type safety
     		gameModel.setFinalResult(RowGameModel.GAME_END_NOWINNER);
     		endGame();
     	}
