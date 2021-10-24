@@ -33,8 +33,10 @@ public class TestExample {
 	RowBlockModel block = new RowBlockModel(null);
     }
     
+    
     @Test
     public void testPlayer1Wins() {
+    	//keep pre condition in mind as well.
     	game.move(0, 0);//player 1
     	game.move(1, 0);//player 2
     	

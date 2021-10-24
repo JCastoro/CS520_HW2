@@ -21,11 +21,12 @@ public class ModelTest {
 	game = null;
     }
     
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     //Tests if a player move is reflected in the model
     public void testGetLegalMove_Illegal() {
+    	game.move(1, 1);//first move was x
     	game.move(1, 1);
-        assertEquals (false, game.gameModel.blocksData[1][1].getIsLegalMove());
+    	assertEquals ("X", game.gameModel.blocksData[1][1].getContents());
       
     }
     @Test

@@ -45,10 +45,11 @@ public class RowBlockModel
     }
 
     /**
-     * Sets the contents of this block to the given value.
+     * Sets the contents of this block to the given value. 
      *
      * @param value The new value for the contents of this block
      * @throws IllegalArgumentException When the given value is null
+     * ^ this is an example of type safety
      */
     public void setContents(String value) {
     	if (value == null) {

@@ -45,6 +45,11 @@ public class RowGameController {
      * @param block The block to be moved to by the current player
      */
     public void move(int row, int column) {
+    	if(gameModel.blocksData[row][column].getIsLegalMove() == false) {
+    		throw new IllegalArgumentException("The move must be legal");
+    	}
+    	else {//if this location is a legal move
+    	
     	gameModel.movesLeft--;
     	gameModel.blocksData[row][column].setIsLegalMove(false);
     	
@@ -76,6 +81,7 @@ public class RowGameController {
     	//updating blocks
     	gameView.updateBlock(gameModel,row,column);
 	
+    }
     }
     
     //checks if the game is won. Could run this starting on turn 5 to save computations.
